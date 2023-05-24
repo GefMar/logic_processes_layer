@@ -1,0 +1,66 @@
+repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.4.0
+    hooks:
+      - id: pyupgrade
+        args: [ --py38-plus ]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [ "--settings-path=pyproject.toml" ]
+        additional_dependencies: [ "toml" ]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: pretty-format-json
+        args:
+          - "--indent=2"
+          - "--autofix"
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: requirements-txt-fixer
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        args: [ "--config=pyproject.toml" ]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.3.0'
+    hooks:
+      - id: mypy
+
+  - repo: https://github.com/flakeheaven/flakeheaven
+    rev: 3.3.0
+    hooks:
+      - id: flakeheaven
+        additional_dependencies: [
+          'wemake-python-styleguide',
+          'flake8-isort',
+          'pyflakes',
+          'pycodestyle',
+          'bandit',
+          'flake8',
+          'flake8-bandit',
+          'flake8-broken-line',
+          'flake8-bugbear',
+          'flake8-commas',
+          'flake8-comprehensions',
+          'flake8-debugger',
+          'flake8-docstrings',
+          'flake8-eradicate',
+          'flake8-plugin-utils',
+          'flake8-polyfill',
+          'flake8-quotes',
+          'flake8-rst-docstrings',
+          'flake8-string-format',
+        ]
+        args: [ "--config=pyproject.toml" ]
