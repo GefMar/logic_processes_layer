@@ -81,3 +81,8 @@ inline_quotes = "double"
     "-WPS347",
     "-WPS412",
 ]
+
+[tool.flakeheaven.exceptions."*.md"]
+"*" = [
+    "-*",
+]

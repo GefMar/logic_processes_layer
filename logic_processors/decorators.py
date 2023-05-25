@@ -23,7 +23,7 @@ def make_run(run_func):
             self.process_result.pre_run[pre_proc] = run_subprocesses(pre_proc, self.context)
         self.process_result.run = run_func(self, *args, **kwargs)
         for post_proc in self.post_run:
-            self.process_result.post_run[post_proc] = post_proc()
+            self.process_result.post_run[post_proc] = run_subprocesses(post_proc, self.context)
         return self.process_result.run
 
     return run_wrapper

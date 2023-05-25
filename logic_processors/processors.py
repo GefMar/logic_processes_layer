@@ -4,10 +4,12 @@ import typing
 
 from .context import BaseProcessContext
 from .meta import MetaProcessor
+from .results import ProcessResult
 
 
 class BaseProcess(metaclass=MetaProcessor):
     _context: typing.Optional["BaseProcessContext"] = None
+    process_result = ProcessResult()
     context_cls = BaseProcessContext
 
     def __call__(self, *args, **kwargs):

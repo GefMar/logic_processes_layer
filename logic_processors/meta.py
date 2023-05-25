@@ -1,7 +1,6 @@
 __all__ = ("MetaProcessor",)
 
 from .decorators import make_run
-from .results import ProcessResult
 
 
 class MetaProcessor(type):
@@ -11,5 +10,4 @@ class MetaProcessor(type):
         attrs["run"] = make_run(attrs["run"])
         attrs["pre_run"] = attrs.get("pre_run", [])
         attrs["post_run"] = attrs.get("post_run", [])
-        attrs["process_result"] = ProcessResult()
         return super().__new__(cls, name, bases, attrs)
