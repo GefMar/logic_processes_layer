@@ -2,15 +2,15 @@
 requires = ["setuptools", "wheel"]
 
 [project]
-name = "logic_layer"
+name = "logic_processes_layer"
 version = "1.1"
 description = "Abstractions for create business logic"
 readme = "README.md"
 authors = [
     { name = "Sergei (Gefest) Romanchuk" }
 ]
-license = "MIT"
-homepage = "https://github.com/GefMar/logic_layer"
+license = { file = "LICENSE" }
+urls = { homepage = "https://github.com/GefMar/logic_layer" }
 classifiers = [
     "License :: OSI Approved :: MIT License"
 ]
