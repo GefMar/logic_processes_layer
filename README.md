@@ -1,4 +1,4 @@
-# logic_processors
+# Business logic layer
 
 A set of classes is provided for implementing business logic with a shared context.
 
@@ -11,13 +11,13 @@ In this case, the context is not available for the auxiliary functions.
 
 ```python
 import dataclasses
-from logic_processors import BaseProcess
+from logic_layer import BaseProcessor
 
 def sub_process():
     return "run sub_process"
 
 @dataclasses.dataclass
-class MyClass(BaseProcess):
+class MyClass(BaseProcessor):
     some: int
     pre_run = [lambda: "Return pre_run unit result", sub_process]
 
@@ -34,19 +34,19 @@ Additionally, all child classes of BaseProcess are callable.
 
 ```python
 import dataclasses
-from logic_processors import BaseProcess
-from logic_processors.context import BaseProcessContext
+from logic_layer import BaseProcessor
+from logic_layer.context import BaseProcessorContext
 
 
 class BaseSubProcess:
     allow_context = True
 
-    def __call__(self, context: BaseProcessContext):
+    def __call__(self, context: BaseProcessorContext):
         return "return result BaseSubProcess"
 
 
 @dataclasses.dataclass
-class MyClass(BaseProcess):
+class MyClass(BaseProcessor):
     some: int
     post_run = [BaseSubProcess(), ]
     pre_run = [lambda: "Return pre_run unit result", BaseSubProcess()]
@@ -57,27 +57,29 @@ process = MyClass(some=1)
 process()
 ```
 
-each child of `BaseProcess` has a `process_result` attribute which is an instance of the `ProcessResult` class
+each child of `BaseProcessor` has a `results` attribute which is an instance of the `ProcessorResult` class
 also you can override the context class by setting the `context_class` attribute
 
 ```python
 import dataclasses
-from logic_processors import BaseProcess
-from logic_processors.context import BaseProcessContext
+from logic_layer import BaseProcessor
+from logic_layer.context import BaseProcessorContext
 
-class CustomContext(BaseProcessContext):
+
+class CustomContext(BaseProcessorContext):
     def some_method(self):
         return "some_method"
+
 
 class BaseSubProcess:
     allow_context = True
 
-    def __call__(self, context: BaseProcessContext):
+    def __call__(self, context: BaseProcessorContext):
         return "return result BaseSubProcess"
 
 
 @dataclasses.dataclass
-class MyClass(BaseProcess):
+class MyClass(BaseProcessor):
     some: int
     post_run = [BaseSubProcess(), ]
     pre_run = [lambda: "Return pre_run unit result", BaseSubProcess()]
@@ -85,7 +87,9 @@ class MyClass(BaseProcess):
 
     def run(self):
         return "Result"
+
+
 process = MyClass(some=1)
 process()
-results = process.process_result
+results = process.results
 ```

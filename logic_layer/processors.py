@@ -1,16 +1,16 @@
-__all__ = ("BaseProcess",)
+__all__ = ("BaseProcessor",)
 
 import typing
 
-from .context import BaseProcessContext
+from .context import BaseProcessorContext
 from .meta import MetaProcessor
-from .results import ProcessResult
+from .results import ProcessorResult
 
 
-class BaseProcess(metaclass=MetaProcessor):
-    _context: typing.Optional["BaseProcessContext"] = None
-    process_result = ProcessResult()
-    context_cls = BaseProcessContext
+class BaseProcessor(metaclass=MetaProcessor):
+    _context: typing.Optional["BaseProcessorContext"] = None
+    results = ProcessorResult()
+    context_cls = BaseProcessorContext
 
     def __call__(self, *args, **kwargs):
         return self.run()
