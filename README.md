@@ -1,7 +1,7 @@
 
-# logic_layer
+# logic_processes_layer
 
-The logic_layer package provides a framework for structuring the logic of your Python programs in a flexible and maintainable way. It allows you to divide your program logic into separate processes, each of which can be easily modified or replaced without affecting the others.
+The logic_processes_layer package provides a framework for structuring the logic of your Python programs in a flexible and maintainable way. It allows you to divide your program logic into separate processes, each of which can be easily modified or replaced without affecting the others.
 
 ## Features
 
@@ -13,16 +13,16 @@ The logic_layer package provides a framework for structuring the logic of your P
 
 ## Installation
 
-You can install the logic_layer package via pip:
+You can install the logic_processes_layer package via pip:
 
 
 ## Basic Usage
 
-Here is a basic example of how to use the logic_layer package:
+Here is a basic example of how to use the logic_processes_layer package:
 
 ```python
 import dataclasses
-from logic_layer import BaseProcessor, BaseProcessorContext
+from logic_processes_layer import BaseProcessor, BaseProcessorContext
 
 class MyPreProcess:
     allow_context = True
@@ -54,7 +54,7 @@ In this example, `MyClass` is a processor that has a pre-run step, a run step, a
 
 ## Advanced Example: Processing Data from Multiple APIs
 
-This example demonstrates how to use the logic_layer package to process data from multiple APIs. The process is divided into three steps: pre-run, run, and post-run.
+This example demonstrates how to use the logic_processes_layer package to process data from multiple APIs. The process is divided into three steps: pre-run, run, and post-run.
 
 ### Pre-run
 
@@ -122,7 +122,7 @@ Please note that you need to replace `'http://api1.com'`, `'http://api2.com'`, a
 
 ## Advanced Example: ChainPipeline with Custom Mapper and Steps
 
-In this example, we delve deeper into the use of `logic_layer` and demonstrate how `ChainPipeline`, `AbstractMapper`, and `AbstractPipelineStep` can be used to create more complex processes.
+In this example, we delve deeper into the use of `logic_processes_layer` and demonstrate how `ChainPipeline`, `AbstractMapper`, and `AbstractPipelineStep` can be used to create more complex processes.
 
 1. **Processors**: We have three processors, `ProcessorOne`, `ProcessorTwo`, and `ProcessorThree`. Each of these processors performs a certain task and returns a result.
 
@@ -135,11 +135,11 @@ In this example, we delve deeper into the use of `logic_layer` and demonstrate h
 ```python
 import dataclasses
 
-from logic_layer import BaseProcessor
-from logic_layer.abc.abc_chain import AbstractChainPipeline
-from logic_layer.abc.abc_mapper import AbstractMapper
-from logic_layer.abc.abc_pipeline import AbstractPipelineStep
-from logic_layer.structures import AttrsData
+from logic_processes_layer import BaseProcessor
+from logic_processes_layer.abc.abc_chain import AbstractChainPipeline
+from logic_processes_layer.abc.abc_mapper import AbstractMapper
+from logic_processes_layer.abc.abc_pipeline import AbstractPipelineStep
+from logic_processes_layer.structures import AttrsData
 
 
 @dataclasses.dataclass

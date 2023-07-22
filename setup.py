@@ -4,7 +4,7 @@ with open("README.md") as fh:
     long_description = fh.read()
 
 setup(
-    name="logic_layer",
+    name="logic_processes_layer",
     version="1.1",
     description="Abstractions for create business logic",
     long_description=long_description,
