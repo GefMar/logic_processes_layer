@@ -14,7 +14,7 @@ The logic_processes_layer package provides a framework for structuring the logic
 ## Installation
 
 You can install the logic_processes_layer package via pip:
-
+pip install logic-processes-layer==1.1
 
 ## Basic Usage
 
