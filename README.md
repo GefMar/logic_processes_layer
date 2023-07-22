@@ -1,4 +1,4 @@
-# logic_processors
+# Business logic layer
 
 A set of classes is provided for implementing business logic with a shared context.
 

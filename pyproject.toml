@@ -1,3 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "logic_layer"
+version = "1.1"
+description = "Abstractions for create business logic"
+readme = "README.md"
+authors = [
+  {name = "Sergei (Gefest) Romanchuk"}
+]
+license = "MIT"
+homepage = "https://github.com/GefMar/logic_layer"
+classifiers = [
+  "License :: OSI Approved :: MIT License"
+]
+
 [tool.isort]
 line_length = "119"
 multi_line_output = "3"
