@@ -12,6 +12,7 @@ from . import context
 def run_subprocesses(processor: typing.Callable, context_instance: "context.BaseProcessorContext"):
     kwargs = {}
     if getattr(processor, "allow_context", False):
+        processor.context = context_instance  # type: ignore
         kwargs["context"] = context_instance
     return processor(**kwargs)
 

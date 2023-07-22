@@ -7,12 +7,12 @@ version = "1.1"
 description = "Abstractions for create business logic"
 readme = "README.md"
 authors = [
-  {name = "Sergei (Gefest) Romanchuk"}
+    { name = "Sergei (Gefest) Romanchuk" }
 ]
 license = "MIT"
 homepage = "https://github.com/GefMar/logic_layer"
 classifiers = [
-  "License :: OSI Approved :: MIT License"
+    "License :: OSI Approved :: MIT License"
 ]
 
 [tool.isort]
@@ -100,4 +100,9 @@ inline_quotes = "double"
 [tool.flakeheaven.exceptions."*.md"]
 "*" = [
     "-*",
+]
+
+[tool.flakeheaven.exceptions."*/abc/abc_*.py"]
+"*" = [
+    "-WPS428",
 ]
