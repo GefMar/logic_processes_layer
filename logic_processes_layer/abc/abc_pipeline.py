@@ -2,9 +2,10 @@ import dataclasses
 import typing
 from abc import ABC, abstractmethod
 
-from ..processors import BaseProcessor
-from ..structures import AttrsData
-from .abc_mapper import AbstractMapper
+if typing.TYPE_CHECKING:
+    from ..processors import BaseProcessor
+    from ..structures import AttrsData
+    from .abc_mapper import AbstractMapper
 
 
 @dataclasses.dataclass

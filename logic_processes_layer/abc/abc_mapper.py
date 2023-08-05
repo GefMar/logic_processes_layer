@@ -2,7 +2,8 @@ import dataclasses
 import typing
 from abc import ABC, abstractmethod
 
-from logic_layer.structures import AttrsData
+if typing.TYPE_CHECKING:
+    from ..structures import AttrsData
 
 
 @dataclasses.dataclass

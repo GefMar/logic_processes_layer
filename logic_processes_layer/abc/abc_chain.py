@@ -1,8 +1,9 @@
 import typing
 from abc import ABC, abstractmethod
 
-from ..structures import AttrsData
-from .abc_pipeline import AbstractPipelineStep
+if typing.TYPE_CHECKING:
+    from ..structures import AttrsData
+    from .abc_pipeline import AbstractPipelineStep
 
 
 class AbstractChainPipeline(ABC):
