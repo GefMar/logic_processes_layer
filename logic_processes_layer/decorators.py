@@ -6,10 +6,14 @@ __all__ = (
 import typing
 from functools import wraps
 
-from . import context
+if typing.TYPE_CHECKING:
+    from . import context
+    from .sub_processors import BaseSubprocessor
 
 
-def run_subprocesses(processor: typing.Callable, context_instance: "context.BaseProcessorContext"):
+def run_subprocesses(
+    processor: typing.Union[typing.Callable, "BaseSubprocessor"], context_instance: "context.BaseProcessorContext"
+):
     kwargs = {}
     if getattr(processor, "allow_context", False):
         processor.context = context_instance  # type: ignore

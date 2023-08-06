@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 
 [project]
 name = "logic_processes_layer"
-version = "1.1"
+version = "1.1.1"
 description = "Abstractions for create business logic"
 readme = "README.md"
 authors = [
