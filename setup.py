@@ -5,7 +5,7 @@ with open("README.md") as fh:
 
 setup(
     name="logic_processes_layer",
-    version="1.1",
+    version="1.1.1",
     description="Abstractions for create business logic",
     long_description=long_description,
     long_description_content_type="text/markdown",
