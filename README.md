@@ -22,21 +22,21 @@ Here is a basic example of how to use the logic_processes_layer package:
 
 ```python
 import dataclasses
-from logic_processes_layer import BaseProcessor, BaseProcessorContext
+from logic_processes_layer import BaseProcessor, BaseProcessorContext, BaseSubprocessor
 
-class MyPreProcess:
+class MyPreProcess(BaseSubprocessor):
     allow_context = True
 
-    def __call__(self, context: BaseProcessorContext):
+    def __call__(self):
         print("This is the pre-run step.")
-        context.data['message'] = "Hello, World!"
+        self.context.data['message'] = "Hello, World!"
 
-class MyPostProcess:
+class MyPostProcess(BaseSubprocessor):
     allow_context = True
 
-    def __call__(self, context: BaseProcessorContext):
+    def __call__(self):
         print("This is the post-run step.")
-        print(context.data['message'])
+        print(self.context.data['message'])
 
 @dataclasses.dataclass
 class MyClass(BaseProcessor):
