@@ -1,11 +1,13 @@
+from pathlib import Path
+
 from setuptools import find_packages, setup
 
-with open("README.md") as fh:
+with Path("README.md").open("r") as fh:
     long_description = fh.read()
 
 setup(
     name="logic_processes_layer",
-    version="1.1.1",
+    version="1.1.2",
     description="Abstractions for create business logic",
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -2,7 +2,8 @@ import typing
 from abc import ABC, abstractmethod
 
 if typing.TYPE_CHECKING:
-    from ..structures import AttrsData
+    from logic_processes_layer.structures import AttrsData
+
     from .abc_pipeline import AbstractPipelineStep
 
 
@@ -12,12 +13,12 @@ class AbstractChainPipeline(ABC):
 
     @property
     @abstractmethod
-    def step_classes(self) -> typing.List[typing.Type[AbstractPipelineStep]]:
+    def step_classes(self) -> typing.List[typing.Type["AbstractPipelineStep"]]:
         ...
 
     @property
     @abstractmethod
-    def start_attrs(self) -> AttrsData:
+    def start_attrs(self) -> "AttrsData":
         ...
 
     def run(self):

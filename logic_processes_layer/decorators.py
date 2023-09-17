@@ -12,13 +12,11 @@ if typing.TYPE_CHECKING:
 
 
 def run_subprocesses(
-    processor: typing.Union[typing.Callable, "BaseSubprocessor"], context_instance: "context.BaseProcessorContext"
-):
-    kwargs = {}
-    if getattr(processor, "allow_context", False):
-        processor.context = context_instance  # type: ignore
-        kwargs["context"] = context_instance
-    return processor(**kwargs)
+    processor: "BaseSubprocessor",
+    context_instance: "context.BaseProcessorContext",
+) -> typing.Any:  # noqa: ANN401
+    processor.context = context_instance
+    return processor()
 
 
 def make_run(run_func):
