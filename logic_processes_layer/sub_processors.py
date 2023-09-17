@@ -5,8 +5,9 @@ if TYPE_CHECKING:
 
 
 class BaseSubprocessor:
-    context: Optional["BaseProcessorContext"]
+    context: Optional["BaseProcessorContext"] = None
     allow_context: bool = True
 
-    def __call__(self, context: "BaseProcessorContext"):
-        raise NotImplementedError("Base process run method is required to be implemented")
+    def __call__(self):
+        msg = "Base process run method is required to be implemented"
+        raise NotImplementedError(msg)
