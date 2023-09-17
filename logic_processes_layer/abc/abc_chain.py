@@ -12,12 +12,12 @@ class AbstractChainPipeline(ABC):
 
     @property
     @abstractmethod
-    def step_classes(self) -> typing.List[typing.Type[AbstractPipelineStep]]:
+    def step_classes(self) -> typing.List[typing.Type["AbstractPipelineStep"]]:
         ...
 
     @property
     @abstractmethod
-    def start_attrs(self) -> AttrsData:
+    def start_attrs(self) -> "AttrsData":
         ...
 
     def run(self):
