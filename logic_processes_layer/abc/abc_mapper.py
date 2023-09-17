@@ -3,7 +3,7 @@ import typing
 from abc import ABC, abstractmethod
 
 if typing.TYPE_CHECKING:
-    from ..structures import AttrsData
+    from logic_processes_layer.structures import AttrsData
 
 
 @dataclasses.dataclass
@@ -14,5 +14,5 @@ class AbstractMapper(ABC):
         return self.build_attrs_strategy(prev_results)
 
     @abstractmethod
-    def build_attrs_strategy(self, prev_results: typing.Any) -> "AttrsData":
+    def build_attrs_strategy(self, prev_results) -> "AttrsData":
         ...

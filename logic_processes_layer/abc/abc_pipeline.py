@@ -3,8 +3,9 @@ import typing
 from abc import ABC, abstractmethod
 
 if typing.TYPE_CHECKING:
-    from ..processors import BaseProcessor
-    from ..structures import AttrsData
+    from logic_processes_layer.processors import BaseProcessor
+    from logic_processes_layer.structures import AttrsData
+
     from .abc_mapper import AbstractMapper
 
 

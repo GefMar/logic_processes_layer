@@ -12,7 +12,8 @@ if typing.TYPE_CHECKING:
 
 
 def run_subprocesses(
-    processor: typing.Union[typing.Callable, "BaseSubprocessor"], context_instance: "context.BaseProcessorContext"
+    processor: typing.Union[typing.Callable, "BaseSubprocessor"],
+    context_instance: "context.BaseProcessorContext",
 ):
     kwargs = {}
     if getattr(processor, "allow_context", False):
