@@ -4,6 +4,7 @@ requires = ["setuptools", "wheel"]
 [project]
 name = "logic_processes_layer"
 version = "1.1.1"
+requires-python = ">=3.8"
 description = "Abstractions for create business logic"
 readme = "README.md"
 authors = [
@@ -20,6 +21,28 @@ line_length = 119
 multi_line_output = 3
 include_trailing_comma = true
 
+[tool.ruff]
+select = ["ALL"]
+line-length = 119
+target-version = "py38"
+fixable = ["ALL"]
+ignore = [
+    'ANN002', 'ANN003', 'ANN101',
+    'D100', 'D101', 'D103', 'D102', 'D104', 'D105', 'D106', 'D203', 'D205',
+    "G004",
+    "TD001",
+]
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F403"]
+
+[tool.ruff.flake8-annotations]
+mypy-init-return = true
+ignore-fully-untyped = true
+allow-star-arg-any = true
+
+[tool.ruff.pydocstyle]
+convention = "pep257"
+
 [tool.black]
 line-length = 120
 target-version = ['py38']
@@ -29,70 +52,19 @@ include = '\.pyi?$'
 baseline = "./.flake_baseline"
 max_line_length = 120
 format = "grouped"
-show_source = true
-statistics = true
+show_source = false
+statistics = false
 inline_quotes = "double"
 
-[tool.flakeheaven.plugins]
-"*" = [
-    "+*", # enable all plugins
-    "-I*", # disable isort
-    "-DAR*", # disable docstring arguments linting by darglint
-    # ignore errors:
-    "-D100", #  Docstring in public module
-    "-D104", #  Docstring in public package
-    "-D106", #  Docstring in public nested class
-    "-D202", #  No blank lines allowed after function docstring (conflicts with black)
-    "-D401", #  First line should be in imperative mood
-    "-D412", #  No blank lines allowed between a section header and its content
-    "-W503", #  line break before binary operator
-    "-WPS110", #  Forbid common names like data or items
-    "-WPS201", #  Found module with too many imports
-    "-WPS226", #  Found string literal over-use
-    "-WPS300", # Found local folder import
-    "-WPS305", #  Forbid f-strings
-    "-WPS306", #  Inherit from object
-    "-WPS430", #  Found nested function
-    "-C819", # Trailing comma prohibited
-    "-D103", # Missing docstring in public function
-    "-WPS410", # Found wrong metadata variable
-    "-D101", # Missing docstring in public class
-    "-D102", # Missing docstring in public method
-    "-D105", # Missing docstring in magic method
-    "-WPS112", # Found private name pattern
-    "-WPS210", # Found too many local variables
-    "-WPS601", # Found shadowed class attribute
-    "-WPS602", # Found using `@staticmethod`
-    "-C812", # missing trailing comma
-    "-D400",
-    "-WPS603", # Found using restricted magic method: __del__
-    "-WPS221", # Found line with high Jones Complexity
-    "-WPS232", # Found module cognitive complexity that is too high
-    "-PT009",
-    "-RST201",
-    "-D402",
-    "-D205",
-    "-RST301",
-    "-RST206",
-    "-WPS202",
-    "-WPS605", # Enabled use staticmethods
-    "-D107", # Missing docstring in __init__
-    "-WPS529", # Found implicit `.get()` dict usage
-    "-WPS237", # Found a too complex `f` string
-    "-WPS326", # Found implicit string concatenation
-    "-WPS615", # Found unpythonic getter or setter
-    "-WPS421", # Found wrong function call https://flake8.codes/WPS421/
-    "-WPS337", # Found multiline conditions
-    "-E203", # https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html#slices
-    "-WPS332"
 
+[tool.flakeheaven.plugins]
+wemake-python-styleguide = [
+    "+*", "-WPS110", "-WPS605", "-WPS305", "-WPS306", "-WPS300", "-WPS412", "-WPS410", "-WPS430", "-WPS602",
 ]
 
 [tool.flakeheaven.exceptions."*/__init__.py"]
 "*" = [
-    "-F401", # imported but unused
-    "-F403", # used; unable to detect undefined names
-    "-WPS440", # Found block variables overlap: *
+    "-WPS440",
     "-WPS347",
     "-WPS412",
 ]
