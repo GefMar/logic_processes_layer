@@ -8,11 +8,11 @@ if typing.TYPE_CHECKING:
 
 @dataclasses.dataclass
 class AbstractMapper(ABC):
-    start_attrs: AttrsData
+    start_attrs: "AttrsData"
 
-    def __call__(self, prev_results) -> AttrsData:
+    def __call__(self, prev_results) -> "AttrsData":
         return self.build_attrs_strategy(prev_results)
 
     @abstractmethod
-    def build_attrs_strategy(self, prev_results: typing.Any) -> AttrsData:
+    def build_attrs_strategy(self, prev_results: typing.Any) -> "AttrsData":
         ...
