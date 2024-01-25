@@ -1,19 +1,23 @@
+from __future__ import annotations
+
+
 __all__ = (
     "make_run",
     "run_subprocesses",
 )
 
-import typing
 from functools import wraps
+import typing
+
 
 if typing.TYPE_CHECKING:
-    from . import context
-    from .sub_processors import BaseSubprocessor
+    from ..context import BaseProcessorContext
+    from ..sub_processors import BaseSubprocessor
 
 
 def run_subprocesses(
-    processor: "BaseSubprocessor",
-    context_instance: "context.BaseProcessorContext",
+    processor: BaseSubprocessor,
+    context_instance: BaseProcessorContext,
 ) -> typing.Any:  # noqa: ANN401
     processor.context = context_instance
     return processor()
