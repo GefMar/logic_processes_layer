@@ -1,0 +1,39 @@
+
+force-exclude = true
+ignore-init-module-imports = true
+select = ["ALL"]
+line-length = 120
+output-format = "grouped"
+target-version = "py38"
+fixable = ["ALL"]
+ignore = [
+    'ANN002', 'ANN003', 'ANN101',
+    'COM812',
+    'D100', 'D101', 'D103', 'D102', 'D104', 'D105', 'D106', "D107", "D400",
+    'D203', 'D205',
+    "G004",
+    'ISC001',
+    "TD001", "TID252",
+]
+external = ["WPS221", "WPS529", "WPS601", ]
+
+[per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+"tests/test_*.py" = ["S101",]
+
+[flake8-annotations]
+mypy-init-return = true
+ignore-fully-untyped = true
+allow-star-arg-any = true
+
+[pydocstyle]
+convention = "pep257"
+
+[isort]
+force-single-line = false
+force-wrap-aliases = true
+force-sort-within-sections = true
+combine-as-imports = true
+lines-after-imports = 2
+lines-between-types = 1
+required-imports = ["from __future__ import annotations"]

@@ -1,24 +1,14 @@
+default_language_version:
+  python: python3.8
+
 repos:
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        args: [ "--settings-path=pyproject.toml" ]
-        additional_dependencies: [ "toml" ]
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.290
-    hooks:
-      - id: ruff
-        args: [ "--fix" ]
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
       - id: pretty-format-json
         args:
-          - "--indent=2"
+          - "--indent=4"
           - "--autofix"
       - id: check-json
       - id: check-yaml
@@ -27,22 +17,23 @@ repos:
       - id: trailing-whitespace
       - id: requirements-txt-fixer
 
-  - repo: https://github.com/psf/black
-    rev: 23.9.1
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.14
     hooks:
-      - id: black
-        args: [ "--config=pyproject.toml" ]
+      - id: ruff-format
+      - id: ruff
+        args: [ --fix, --unsafe-fixes ]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: '7.0.0'
+    hooks:
+      - id: flake8
+        args: ["--config=pyproject.toml"]
+        additional_dependencies: ["flake8-pyproject", "wemake-python-styleguide"]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.5.1'
+    rev: 'v1.8.0'
     hooks:
       - id: mypy
-
-  - repo: https://github.com/flakeheaven/flakeheaven
-    rev: 3.3.0
-    hooks:
-      - id: flakeheaven
-        additional_dependencies: [
-          'wemake-python-styleguide',
-        ]
-        args: [ "--config=pyproject.toml" ]
+        additional_dependencies: [ "no_implicit_optional" ]
+        args: [ "--config-file=mypy.ini", "--install-types", "--non-interactive" ]

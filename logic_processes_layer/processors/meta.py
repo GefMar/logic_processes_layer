@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 __all__ = ("MetaProcessor",)
 
 from .decorators import make_run
@@ -5,7 +8,6 @@ from .decorators import make_run
 
 class MetaProcessor(type):
     def __new__(cls, name, bases, attrs):
-        attrs["run"] = make_run(attrs["run"])
-        attrs["pre_run"] = attrs.get("pre_run", [])
-        attrs["post_run"] = attrs.get("post_run", [])
+        if "run" in attrs:
+            attrs["run"] = make_run(attrs["run"])  # noqa: WPS529
         return super().__new__(cls, name, bases, attrs)
