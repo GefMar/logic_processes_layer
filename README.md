@@ -14,7 +14,7 @@ The logic_processes_layer package provides a framework for structuring the logic
 ## Installation
 
 You can install the logic_processes_layer package via pip:
-pip install logic-processes-layer==1.1
+pip install logic-processes-layer
 
 ## Basic Usage
 
@@ -61,19 +61,19 @@ This example demonstrates how to use the logic_processes_layer package to proces
 In the pre-run step, we have two subprocesses, each making a GET request to a different API. The responses from these requests are stored in `self.results.pre_run`, and will be used in the main run step.
 
 ```python
-class PreProcess1:
+class PreProcess1(BaseSubprocessor):
     allow_context = True
 
-    def __call__(self, context: BaseProcessorContext):
+    def __call__(self):
         # Assuming that we are making a GET request to the first API
         response1 = requests.get('http://api1.com')
         # Return the response
         return response1.json()
 
-class PreProcess2:
+class PreProcess2(BaseSubprocessor):
     allow_context = True
 
-    def __call__(self, context: BaseProcessorContext):
+    def __call__(self):
         # Assuming that we are making a GET request to the second API
         response2 = requests.get('http://api2.com')
         # Return the response
@@ -100,10 +100,10 @@ def run(self):
 In the post-run step, we have a subprocess that sends the result from the run step to another API. The response from this POST request is stored in `self.results.post_run`.
 
 ```python
-class PostProcess:
+class PostProcess(BaseSubprocessor):
     allow_context = True
 
-    def __call__(self, context: BaseProcessorContext):
+    def __call__(self):
         result = context.process.results.run
         # Send the result to another API
         response3 = requests.post('http://api3.com', data=result)
