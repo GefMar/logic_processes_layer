@@ -16,16 +16,23 @@ The logic_processes_layer package provides a framework for structuring the logic
 You can install the logic_processes_layer package via pip:
 pip install logic-processes-layer
 
+## New Features
+
+- ProcessAsSubprocess: Use any process as a subprocess.
+- InitMapper: Simplifies process initialization with attribute mapping from the context.
+- ProcessAttr: Retrieve attributes from the process context or directly from the process.
+- [Examples](tests/examples) of how to use the logic_processes_layer package.
+
+
 ## Basic Usage
 
 Here is a basic example of how to use the logic_processes_layer package:
 
 ```python
 import dataclasses
-from logic_processes_layer import BaseProcessor, BaseProcessorContext, BaseSubprocessor
+from logic_processes_layer import BaseProcessor, BaseSubprocessor
 
 class MyPreProcess(BaseSubprocessor):
-    allow_context = True
 
     def __call__(self):
         print("This is the pre-run step.")
@@ -40,8 +47,8 @@ class MyPostProcess(BaseSubprocessor):
 
 @dataclasses.dataclass
 class MyClass(BaseProcessor):
-    pre_run = [MyPreProcess()]
-    post_run = [MyPostProcess()]
+    pre_run = (MyPreProcess(), )
+    post_run = (MyPostProcess(), )
 
     def run(self):
         print("This is the run step.")
@@ -62,7 +69,6 @@ In the pre-run step, we have two subprocesses, each making a GET request to a di
 
 ```python
 class PreProcess1(BaseSubprocessor):
-    allow_context = True
 
     def __call__(self):
         # Assuming that we are making a GET request to the first API
@@ -71,7 +77,6 @@ class PreProcess1(BaseSubprocessor):
         return response1.json()
 
 class PreProcess2(BaseSubprocessor):
-    allow_context = True
 
     def __call__(self):
         # Assuming that we are making a GET request to the second API
@@ -101,7 +106,6 @@ In the post-run step, we have a subprocess that sends the result from the run st
 
 ```python
 class PostProcess(BaseSubprocessor):
-    allow_context = True
 
     def __call__(self):
         result = context.process.results.run
