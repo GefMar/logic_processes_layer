@@ -15,11 +15,11 @@ ignore = [
     'ISC001',
     "TD001", "TID252",
 ]
-external = ["WPS221", "WPS529", "WPS601", ]
+external = ["WPS221", "WPS432", "WPS529", "WPS601",]
 
 [per-file-ignores]
 "__init__.py" = ["F401", "F403"]
-"tests/test_*.py" = ["S101",]
+"tests/test_*.py" = ["S101", "S311"]
 
 [flake8-annotations]
 mypy-init-return = true
@@ -35,5 +35,4 @@ force-wrap-aliases = true
 force-sort-within-sections = true
 combine-as-imports = true
 lines-after-imports = 2
-lines-between-types = 1
 required-imports = ["from __future__ import annotations"]

@@ -13,6 +13,7 @@ from .meta import MetaProcessor
 if typing.TYPE_CHECKING:
     from ..sub_processors import BaseSubprocessor
 
+
 ContextT = typing.TypeVar("ContextT", bound=BaseProcessorContext)
 ResultsT = typing.TypeVar("ResultsT", bound=ProcessorResult)
 
@@ -22,8 +23,8 @@ class BaseProcessor(typing.Generic[ContextT, ResultsT], metaclass=MetaProcessor)
     _context: ContextT | None = None
     results_cls: type[ResultsT] = typing.cast(typing.Type[ResultsT], ProcessorResult)
     context_cls: type[ContextT] = typing.cast(typing.Type[ContextT], BaseProcessorContext)
-    pre_run: tuple[BaseSubprocessor] = ()  # type: ignore  # noqa: PGH003
-    post_run: tuple[BaseSubprocessor] = ()  # type: ignore  # noqa: PGH003
+    pre_run: tuple[BaseSubprocessor, ...] = ()
+    post_run: tuple[BaseSubprocessor, ...] = ()
 
     def __call__(self):
         return self.run()

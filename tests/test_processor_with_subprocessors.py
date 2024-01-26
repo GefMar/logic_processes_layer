@@ -20,10 +20,10 @@ class TestProcessorWithSubprocess:
     def check_state(self, results, state_name):
         proc_state_instances = getattr(self.processor, state_name)
         result_state = getattr(results, state_name)
-        assert isinstance(result_state, dict)
-        assert len(proc_state_instances) == len(result_state)
+        assert isinstance(result_state, dict), state_name
+        assert len(proc_state_instances) == len(result_state), state_name
         for state_itm in proc_state_instances:
-            assert result_state[state_itm] == state_itm.__class__.__name__
+            assert result_state[state_itm] == state_itm.__class__.__name__, state_name
 
     def test_process_result(self):
         self.processor()
