@@ -1,16 +1,16 @@
 from __future__ import annotations
 
-from tests.examples.processors.symple import SympleProcessor
-from tests.examples.sub_processors import SympleSubprocessor
+from tests.examples.processors.simple import SimpleProcessor
+from tests.examples.sub_processors import SimpleSubprocessor
 
 
-def make_symple_subprocessor(cls_name):
-    return type(cls_name, (SympleSubprocessor,), {})
+def make_simple_subprocessor(cls_name):
+    return type(cls_name, (SimpleSubprocessor,), {})
 
 
-class ProcessorWithSubprocess(SympleProcessor):
-    pre_run = tuple(make_symple_subprocessor(f"Subprocessor{idx}")() for idx in range(2))  # noqa: WPS221
-    post_run = tuple(make_symple_subprocessor(f"Subprocessor{idx}")() for idx in range(2, 5))  # noqa: WPS221
+class ProcessorWithSubprocess(SimpleProcessor):
+    pre_run = tuple(make_simple_subprocessor(f"Subprocessor{idx}")() for idx in range(2))  # noqa: WPS221
+    post_run = tuple(make_simple_subprocessor(f"Subprocessor{idx}")() for idx in range(2, 5))  # noqa: WPS221
 
 
 class TestProcessorWithSubprocess:

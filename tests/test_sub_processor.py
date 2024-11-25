@@ -4,13 +4,13 @@ from unittest.mock import Mock
 
 from logic_processes_layer import BaseProcessor, BaseProcessorContext
 
-from .examples.sub_processors import SympleSubprocessor
+from .examples.sub_processors import SimpleSubprocessor
 
 
-class TestSympleSubprocessor:
+class TestSimpleSubprocessor:
     def setup_method(self):
         self.context = BaseProcessorContext(process=Mock(spec=BaseProcessor))
-        self.subprocessor = SympleSubprocessor()
+        self.subprocessor = SimpleSubprocessor()
         self.subprocessor.context = self.context
 
     def test_call(self):
