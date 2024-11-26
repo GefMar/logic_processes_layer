@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from tests.examples.processors.symple import SympleProcessor
+from tests.examples.processors.simple import SimpleProcessor
 
 
-class TestSympleProcessor:
+class TestSimpleProcessor:
     def setup_method(self):
-        self.processor = SympleProcessor()
+        self.processor = SimpleProcessor()
 
     def test_run(self):
         assert self.processor.run() == self.processor.__class__.__name__

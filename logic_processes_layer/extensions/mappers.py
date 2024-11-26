@@ -4,6 +4,7 @@ from __future__ import annotations
 __all__ = ("InitMapper", "ProcessAttr")
 
 import dataclasses
+from operator import attrgetter
 import typing
 
 
@@ -17,9 +18,8 @@ class ProcessAttr:
     from_context: bool = dataclasses.field(default=False)
 
     def get_value(self, context: typing.Any) -> typing.Any:  # noqa: ANN401
-        if self.from_context:
-            return getattr(context, self.attr_name)
-        return getattr(context.process, self.attr_name)
+        source = (context.process, context)[self.from_context]
+        return attrgetter(self.attr_name)(source)
 
 
 class InitMapper:

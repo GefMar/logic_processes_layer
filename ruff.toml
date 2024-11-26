@@ -1,13 +1,13 @@
-
 force-exclude = true
-ignore-init-module-imports = true
-select = ["ALL"]
 line-length = 120
 output-format = "grouped"
 target-version = "py38"
+
+[lint]
+select = ["ALL"]
 fixable = ["ALL"]
 ignore = [
-    'ANN002', 'ANN003', 'ANN101',
+    'ANN002', 'ANN003',
     'COM812',
     'D100', 'D101', 'D103', 'D102', 'D104', 'D105', 'D106', "D107", "D400",
     'D203', 'D205',
@@ -15,21 +15,22 @@ ignore = [
     'ISC001',
     "TD001", "TID252",
 ]
-external = ["WPS221", "WPS432", "WPS529", "WPS601",]
 
-[per-file-ignores]
+external = ["WPS221", "WPS432", "WPS529", "WPS601","WPS428"]
+
+[lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
 "tests/test_*.py" = ["S101", "S311"]
 
-[flake8-annotations]
+[lint.flake8-annotations]
 mypy-init-return = true
 ignore-fully-untyped = true
 allow-star-arg-any = true
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "pep257"
 
-[isort]
+[lint.isort]
 force-single-line = false
 force-wrap-aliases = true
 force-sort-within-sections = true

@@ -6,7 +6,7 @@ from logic_processes_layer import BaseProcessor, BaseProcessorContext
 from logic_processes_layer.extensions import InitMapper, ProcessAsSubprocess, ProcessAttr
 from logic_processes_layer.processors.base import ResultsT
 
-from ..sub_processors import SympleSubprocessor
+from ..sub_processors import SimpleSubprocessor
 
 
 class CompositionContext(BaseProcessorContext["ProcessComposition"]):
@@ -38,7 +38,7 @@ class ProcessComposition(BaseProcessor[CompositionContext, ResultsT]):
     context_cls = CompositionContext
 
     pre_run = (
-        SympleSubprocessor(),
+        SimpleSubprocessor(),
         SubProc(
             process_cls=ProcessWithInitalData,
             init_mapper=InitMapper(1, 2),
