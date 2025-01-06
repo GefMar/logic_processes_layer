@@ -8,10 +8,8 @@ import typing
 from ..context import BaseProcessorContext
 
 
-ContextContravariantT_contra = typing.TypeVar(
-    "ContextContravariantT_contra", bound=BaseProcessorContext, contravariant=True
-)
+ContextT_contra = typing.TypeVar("ContextT_contra", bound=BaseProcessorContext, contravariant=True)
 
 
-class ConditionProtocol(typing.Protocol[ContextContravariantT_contra]):
-    def __call__(self, context: ContextContravariantT_contra) -> bool: ...  # noqa: WPS220, WPS428
+class ConditionProtocol(typing.Protocol[ContextT_contra]):
+    def __call__(self, context: ContextT_contra) -> bool: ...  # noqa: WPS220, WPS428
