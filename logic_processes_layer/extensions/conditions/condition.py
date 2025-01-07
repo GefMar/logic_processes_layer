@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-__all__ = ("AttrCondition",)
+__all__ = ("AttrCondition", "FunctionCondition", "OperatorCondition")
 
 import typing
 
@@ -57,3 +57,8 @@ class AttrCondition(OperatorCondition[ContextT]):
         value = self.process_attr.get_value(context)
         result = bool(value)
         return not result if self.negated else result
+
+
+class FunctionCondition(OperatorCondition[ContextT]):
+    def __init__(self, func: CallableConditionProtocol, *, negated: bool = False):
+        super().__init__(operator=OperatorEnum.AND, conditions=[func], negated=negated)
