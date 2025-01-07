@@ -30,4 +30,5 @@ ignore = [
     "WPS602", "WPS605"]
 
 per-file-ignores = [
-    "__init__.py:WPS347, WPS440",]
+    "__init__.py:WPS347, WPS440",
+    "*_enums.py:WPS115",]

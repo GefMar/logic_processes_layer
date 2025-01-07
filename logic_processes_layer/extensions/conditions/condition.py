@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 
-__all__ = ["AndCondition", "Condition", "OrCondition"]
+__all__ = ("AttrCondition",)
 
 import typing
 
 from ...context import BaseProcessorContext
+from .operator_enums import OperatorEnum
 
 
 if typing.TYPE_CHECKING:
@@ -14,34 +15,45 @@ if typing.TYPE_CHECKING:
 
 
 ContextT = typing.TypeVar("ContextT", bound=BaseProcessorContext)
+OperatorCallablesT = typing.Callable[[typing.Iterable[typing.Any]], bool]
+OperatorMapT = typing.Dict[OperatorEnum, OperatorCallablesT]
 
 
-class AndCondition:
-    def __init__(self, conditions: typing.Iterable[ConditionProtocol]):
+class OperatorCondition(typing.Generic[ContextT]):
+    operator_map: typing.ClassVar[OperatorMapT] = {OperatorEnum.AND: all, OperatorEnum.OR: any}
+
+    def __init__(
+        self,
+        conditions: typing.Iterable[ConditionProtocol],
+        *,
+        operator: OperatorEnum = OperatorEnum.AND,
+        negated: bool = False,
+    ):
         self.conditions = conditions
+        self.negated = negated
+        self.operator = operator
 
     def __call__(self, context: ContextT) -> bool:
-        return all(condition(context) for condition in self.conditions)
+        operator_f = self.operator_map[self.operator]
+        result = operator_f(condition(context) for condition in self.conditions)
+        return not result if self.negated else result
+
+    def __invert__(self) -> OperatorCondition:
+        return OperatorCondition([self], operator=self.operator, negated=not self.negated)
+
+    def __and__(self, other: ConditionProtocol) -> ConditionProtocol:
+        return OperatorCondition([self, other], operator=OperatorEnum.AND)
+
+    def __or__(self, other: ConditionProtocol) -> ConditionProtocol:
+        return OperatorCondition([self, other], operator=OperatorEnum.OR)
 
 
-class OrCondition:
-    def __init__(self, conditions: typing.Iterable[ConditionProtocol]):
-        self.conditions = conditions
-
-    def __call__(self, context: ContextT) -> bool:
-        return any(condition(context) for condition in self.conditions)
-
-
-class Condition(typing.Generic[ContextT]):
-    def __init__(self, process_attr: ProcessAttr):
+class AttrCondition(OperatorCondition[ContextT]):
+    def __init__(self, process_attr: ProcessAttr, *, negated: bool = False):
         self.process_attr = process_attr
+        super().__init__(operator=OperatorEnum.AND, conditions=[self], negated=negated)
 
     def __call__(self, context: ContextT) -> bool:
         value = self.process_attr.get_value(context)
-        return bool(value)
-
-    def __and__(self, other: ConditionProtocol) -> ConditionProtocol:
-        return AndCondition([self, other])
-
-    def __or__(self, other: ConditionProtocol) -> ConditionProtocol:
-        return OrCondition([self, other])
+        result = bool(value)
+        return not result if self.negated else result
