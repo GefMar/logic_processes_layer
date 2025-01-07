@@ -10,7 +10,7 @@ from .operator_enums import OperatorEnum
 
 
 if typing.TYPE_CHECKING:
-    from ...protocols import ConditionProtocol
+    from ...protocols import CallableConditionProtocol
     from ..mappers import ProcessAttr
 
 
@@ -24,7 +24,7 @@ class OperatorCondition(typing.Generic[ContextT]):
 
     def __init__(
         self,
-        conditions: typing.Iterable[ConditionProtocol],
+        conditions: typing.Iterable[CallableConditionProtocol],
         *,
         operator: OperatorEnum = OperatorEnum.AND,
         negated: bool = False,
@@ -41,10 +41,10 @@ class OperatorCondition(typing.Generic[ContextT]):
     def __invert__(self) -> OperatorCondition:
         return OperatorCondition([self], operator=self.operator, negated=not self.negated)
 
-    def __and__(self, other: ConditionProtocol) -> ConditionProtocol:
+    def __and__(self, other: CallableConditionProtocol) -> OperatorCondition:
         return OperatorCondition([self, other], operator=OperatorEnum.AND)
 
-    def __or__(self, other: ConditionProtocol) -> ConditionProtocol:
+    def __or__(self, other: CallableConditionProtocol) -> OperatorCondition:
         return OperatorCondition([self, other], operator=OperatorEnum.OR)
 
 
