@@ -51,7 +51,7 @@ class OperatorCondition(typing.Generic[ContextT]):
     def __or__(self, other: CallableConditionProtocol) -> OperatorCondition:
         return OperatorCondition([self, other], operator=OperatorEnum.OR)
 
-    def __xor__(self, other):
+    def __xor__(self, other: CallableConditionProtocol) -> OperatorCondition:
         return OperatorCondition([self, other], operator=OperatorEnum.XOR)
 
 
