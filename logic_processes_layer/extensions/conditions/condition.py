@@ -39,7 +39,7 @@ class OperatorCondition(typing.Generic[ContextT]):
 
     def __call__(self, context: ContextT) -> bool:
         operator_f = self.operator_map[self.operator]
-        result = operator_f(condition(context) for condition in self.conditions)
+        result = operator_f(bool(condition(context)) for condition in self.conditions)
         return not result if self.negated else result
 
     def __invert__(self) -> OperatorCondition:
