@@ -6,3 +6,4 @@ import enum
 class OperatorEnum(enum.Enum):
     AND = "AND"
     OR = "OR"
+    XOR = "XOR"

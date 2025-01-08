@@ -13,14 +13,17 @@ if typing.TYPE_CHECKING:
     from ...protocols import CallableConditionProtocol
     from ..mappers import ProcessAttr
 
-
 ContextT = typing.TypeVar("ContextT", bound=BaseProcessorContext)
 OperatorCallablesT = typing.Callable[[typing.Iterable[typing.Any]], bool]
 OperatorMapT = typing.Dict[OperatorEnum, OperatorCallablesT]
 
 
 class OperatorCondition(typing.Generic[ContextT]):
-    operator_map: typing.ClassVar[OperatorMapT] = {OperatorEnum.AND: all, OperatorEnum.OR: any}
+    operator_map: typing.ClassVar[OperatorMapT] = {
+        OperatorEnum.AND: all,
+        OperatorEnum.OR: any,
+        OperatorEnum.XOR: lambda conditions: sum(conditions) == 1,
+    }
 
     def __init__(
         self,
@@ -46,6 +49,9 @@ class OperatorCondition(typing.Generic[ContextT]):
 
     def __or__(self, other: CallableConditionProtocol) -> OperatorCondition:
         return OperatorCondition([self, other], operator=OperatorEnum.OR)
+
+    def __xor__(self, other):
+        return OperatorCondition([self, other], operator=OperatorEnum.XOR)
 
 
 class AttrCondition(OperatorCondition[ContextT]):
