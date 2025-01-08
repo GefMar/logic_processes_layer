@@ -3,6 +3,7 @@ from __future__ import annotations
 
 __all__ = ("AttrCondition", "FunctionCondition", "OperatorCondition")
 
+from functools import partial, reduce
 import typing
 
 from ...context import BaseProcessorContext
@@ -13,14 +14,17 @@ if typing.TYPE_CHECKING:
     from ...protocols import CallableConditionProtocol
     from ..mappers import ProcessAttr
 
-
 ContextT = typing.TypeVar("ContextT", bound=BaseProcessorContext)
 OperatorCallablesT = typing.Callable[[typing.Iterable[typing.Any]], bool]
 OperatorMapT = typing.Dict[OperatorEnum, OperatorCallablesT]
 
 
 class OperatorCondition(typing.Generic[ContextT]):
-    operator_map: typing.ClassVar[OperatorMapT] = {OperatorEnum.AND: all, OperatorEnum.OR: any}
+    operator_map: typing.ClassVar[OperatorMapT] = {
+        OperatorEnum.AND: all,
+        OperatorEnum.OR: any,
+        OperatorEnum.XOR: partial(reduce, lambda itm, other: itm ^ other),
+    }
 
     def __init__(
         self,
@@ -35,7 +39,7 @@ class OperatorCondition(typing.Generic[ContextT]):
 
     def __call__(self, context: ContextT) -> bool:
         operator_f = self.operator_map[self.operator]
-        result = operator_f(condition(context) for condition in self.conditions)
+        result = operator_f(bool(condition(context)) for condition in self.conditions)
         return not result if self.negated else result
 
     def __invert__(self) -> OperatorCondition:
@@ -46,6 +50,9 @@ class OperatorCondition(typing.Generic[ContextT]):
 
     def __or__(self, other: CallableConditionProtocol) -> OperatorCondition:
         return OperatorCondition([self, other], operator=OperatorEnum.OR)
+
+    def __xor__(self, other: CallableConditionProtocol) -> OperatorCondition:
+        return OperatorCondition([self, other], operator=OperatorEnum.XOR)
 
 
 class AttrCondition(OperatorCondition[ContextT]):
