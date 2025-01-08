@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-__all__ = ["ConditionSkipped"]
+__all__ = ("ConditionSkipped",)
 
 import dataclasses
 import typing
