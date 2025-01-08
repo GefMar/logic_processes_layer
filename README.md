@@ -18,9 +18,13 @@ pip install logic-processes-layer
 
 ## New Features
 
-- ProcessAsSubprocess: Use any process as a subprocess.
-- InitMapper: Simplifies process initialization with attribute mapping from the context.
-- ProcessAttr: Retrieve attributes from the process context or directly from the process.
+- **ProcessAsSubprocess**: Use any process as a subprocess.
+- **InitMapper**: Simplifies process initialization with attribute mapping from the context.
+- **ProcessAttr**: Retrieve attributes from the process context or directly from the process.
+- **Conditions Support**: Add logical conditions to control the execution of processes.
+  - **AttrCondition**: Define conditions based on attributes of the process or context.
+  - **FunctionCondition**: Wrap custom functions as conditions.
+  - **Logical Operators**: Combine conditions with `&` (AND), `|` (OR), `~` (NOT), and `^` (XOR) for advanced logic.
 - [Examples](tests/examples) of how to use the logic_processes_layer package.
 
 
