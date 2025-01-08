@@ -3,6 +3,7 @@ from __future__ import annotations
 
 __all__ = ("AttrCondition", "FunctionCondition", "OperatorCondition")
 
+from functools import partial, reduce
 import typing
 
 from ...context import BaseProcessorContext
@@ -22,7 +23,7 @@ class OperatorCondition(typing.Generic[ContextT]):
     operator_map: typing.ClassVar[OperatorMapT] = {
         OperatorEnum.AND: all,
         OperatorEnum.OR: any,
-        OperatorEnum.XOR: lambda conditions: sum(conditions) == 1,
+        OperatorEnum.XOR: partial(reduce, lambda itm, other: itm ^ other),
     }
 
     def __init__(
