@@ -8,7 +8,6 @@ version = "1.2025.01.06"
 requires-python = ">=3.8"
 description = "Abstractions for create business logic"
 readme = "README.md"
-dependencies = ["attrs~=24.3"]
 authors = [{ name = "Sergei (Gefest) Romanchuk", email = "pod.cargoes.0u@icloud.com" }]
 
 license = { file = "LICENSE" }
@@ -31,4 +30,5 @@ ignore = [
 
 per-file-ignores = [
     "__init__.py:WPS347, WPS440",
-    "*_enums.py:WPS115",]
+    "*_enums.py:WPS115",
+    "tests/test_*.py:WPS202, WPS442",]
