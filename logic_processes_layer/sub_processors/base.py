@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 
-__all__ = ("BaseSubprocessor",)
+__all__ = ("BaseSubprocessor", "CallResultT", "ContextT")
 
 import dataclasses
 import typing
