@@ -16,7 +16,7 @@ ignore = [
     "TD001", "TID252",
 ]
 
-external = ["WPS221", "WPS432", "WPS529", "WPS601","WPS428"]
+external = ["WPS220", "WPS221", "WPS432", "WPS529", "WPS601","WPS428"]
 
 [lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]

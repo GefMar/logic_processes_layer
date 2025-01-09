@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "logic_processes_layer"
-version = "1.1.4"
+version = "1.2025.01.06"
 requires-python = ">=3.8"
 description = "Abstractions for create business logic"
 readme = "README.md"
@@ -18,6 +18,7 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 max-line-length = 120
 inline_quotes = "double"
 format = "wemake"
+select = ["WPS"]
 
 ignore = [
     "C", "D", "F", "DAR", "RST", "Q", "I", "S",
@@ -28,4 +29,6 @@ ignore = [
     "WPS602", "WPS605"]
 
 per-file-ignores = [
-    "__init__.py:WPS347, WPS440",]
+    "__init__.py:WPS347, WPS440",
+    "*_enums.py:WPS115",
+    "tests/test_*.py:WPS202, WPS442",]
