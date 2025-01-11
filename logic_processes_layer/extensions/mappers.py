@@ -10,16 +10,19 @@ import typing
 
 AnyTupleT = typing.Tuple[typing.Any, ...]
 DictStrAnyT = typing.Dict[str, typing.Any]
+AttrResultT = typing.TypeVar("AttrResultT")
 
 
 @dataclasses.dataclass
-class ProcessAttr:
+class ProcessAttr(typing.Generic[AttrResultT]):
     attr_name: str
     from_context: bool = dataclasses.field(default=False)
+    cast: typing.Callable[[typing.Any], AttrResultT] = dataclasses.field(default=lambda arg: arg)
 
-    def get_value(self, context: typing.Any) -> typing.Any:  # noqa: ANN401
+    def get_value(self, context: typing.Any) -> AttrResultT:  # noqa: ANN401
         source = (context.process, context)[self.from_context]
-        return attrgetter(self.attr_name)(source)
+        source_value = attrgetter(self.attr_name)(source)
+        return self.cast(source_value)
 
 
 class InitMapper:
