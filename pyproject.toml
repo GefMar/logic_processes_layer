@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "logic_processes_layer"
-version = "1.2025.01.09"
+version = "1.2025.01.14"
 requires-python = ">=3.8"
 description = "Abstractions for create business logic"
 readme = "README.md"
